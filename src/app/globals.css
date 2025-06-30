@@ -7,6 +7,23 @@
   /* padding: 0; */
   box-sizing: border-box;
 }
+@layer utilities {
+  @media (max-width: 881px) {
+    .text-881 {
+      font-size: 12px;
+    }
+  }
+}
+
+@layer utilities {
+  @media (max-width: 638) {
+    .text-638 {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+  }
+}
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);

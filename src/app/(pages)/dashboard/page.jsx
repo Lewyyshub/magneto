@@ -1,3 +1,4 @@
+import About from "@/app/components/AboutUs/about";
 import Header from "@/app/components/Header/header";
 import ProductCard from "@/app/components/produtcCard/productcard";
 import Productstext from "@/app/components/RichText/productstxt";
@@ -10,6 +11,7 @@ function Dashboard() {
       <Richtext />
       <Productstext />
       <ProductCard />
+      <About />
     </div>
   );
 }
