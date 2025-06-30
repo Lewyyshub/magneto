@@ -9,14 +9,34 @@ import "swiper/css/effect-cards";
 function About() {
   const [isMobile, setIsMobile] = useState(false);
 
+  //   useEffect(() => {
+  //     const handleResize = () => {
+  //       setIsMobile(window.innerWidth <= 640);
+  //     };
+
+  //     handleResize();
+  //     window.addEventListener("resize", handleResize);
+  //     return () => window.removeEventListener("resize", handleResize);
+  //   }, []);
+
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 640);
+    const checkMobile = () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+
+      // ითვლება მობილურად ან ვერტიკალურად ან ჰორიზონტალურად
+      const isMobileScreen = width <= 640 || height <= 480;
+      setIsMobile(isMobileScreen);
     };
 
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    checkMobile(); // პირველივე რენდერზე
+    window.addEventListener("resize", checkMobile);
+    window.addEventListener("orientationchange", checkMobile); // ტრიალებისას
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+      window.removeEventListener("orientationchange", checkMobile);
+    };
   }, []);
 
   const image = (
