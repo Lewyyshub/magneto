@@ -89,8 +89,8 @@
 
 // export default About;
 "use client";
-import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCards } from "swiper/modules";
 import "swiper/css";
@@ -103,24 +103,21 @@ export default function About() {
   useEffect(() => {
     setMounted(true);
 
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+    const checkScreen = () => {
+      setIsMobile(window.innerWidth < 1024); // Swiper ყველასთვის <1024px
     };
 
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    window.addEventListener("orientationchange", checkMobile);
+    checkScreen();
+    window.addEventListener("resize", checkScreen);
+    window.addEventListener("orientationchange", checkScreen);
 
     return () => {
-      window.removeEventListener("resize", checkMobile);
-      window.removeEventListener("orientationchange", checkMobile);
+      window.removeEventListener("resize", checkScreen);
+      window.removeEventListener("orientationchange", checkScreen);
     };
   }, []);
 
-  // Avoid rendering until client-side mount happens
-  if (!mounted) {
-    return null;
-  }
+  if (!mounted) return null;
 
   const image = (
     <div className="w-full sm:w-[80%] md:w-1/2 max-w-[500px] rounded-[20px] bg-red-500">
@@ -138,7 +135,13 @@ export default function About() {
     <div className="w-full px-5 sm:w-[80%] md:w-1/2">
       <p className="text-white text-wrap lg:text-[18px] md:text-[15px] text-[13px]">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate
-        impedit, laboriosam...
+        impedit... Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Voluptate impedit... Lorem ipsum dolor sit amet consectetur adipisicing
+        elit. Voluptate impedit... Lorem ipsum dolor sit amet consectetur
+        adipisicing elit. Voluptate impedit... Lorem ipsum dolor sit amet
+        consectetur adipisicing elit. Voluptate impedit... Lorem ipsum dolor sit
+        amet consectetur adipisicing elit. Voluptate impedit... Lorem ipsum
+        dolor sit amet consectetur adipisicing elit. Voluptate impedit...
       </p>
     </div>
   );
