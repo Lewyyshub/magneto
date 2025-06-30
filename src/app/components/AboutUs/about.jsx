@@ -8,30 +8,26 @@ import "swiper/css/effect-cards";
 
 function About() {
   const [isMobile, setIsMobile] = useState(false);
-
-  //   useEffect(() => {
-  //     const handleResize = () => {
-  //       setIsMobile(window.innerWidth <= 640);
-  //     };
-
-  //     handleResize();
-  //     window.addEventListener("resize", handleResize);
-  //     return () => window.removeEventListener("resize", handleResize);
-  //   }, []);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768); // აქ md ზღვარი ზუსტადაა
+      setIsMobile(window.innerWidth < 768);
     };
 
     checkMobile();
     window.addEventListener("resize", checkMobile);
     window.addEventListener("orientationchange", checkMobile);
+
     return () => {
       window.removeEventListener("resize", checkMobile);
       window.removeEventListener("orientationchange", checkMobile);
     };
   }, []);
+
+  if (!mounted) return null;
 
   const image = (
     <div className="image-div w-full sm:w-[80%] md:w-1/2 max-w-[500px] rounded-[20px] bg-red-500">
