@@ -21,18 +21,12 @@ function About() {
 
   useEffect(() => {
     const checkMobile = () => {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-
-      // ითვლება მობილურად ან ვერტიკალურად ან ჰორიზონტალურად
-      const isMobileScreen = width <= 640 || height <= 480;
-      setIsMobile(isMobileScreen);
+      setIsMobile(window.innerWidth < 768); // აქ md ზღვარი ზუსტადაა
     };
 
-    checkMobile(); // პირველივე რენდერზე
+    checkMobile();
     window.addEventListener("resize", checkMobile);
-    window.addEventListener("orientationchange", checkMobile); // ტრიალებისას
-
+    window.addEventListener("orientationchange", checkMobile);
     return () => {
       window.removeEventListener("resize", checkMobile);
       window.removeEventListener("orientationchange", checkMobile);
