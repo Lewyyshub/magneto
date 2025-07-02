@@ -3,7 +3,7 @@ import React from "react";
 
 function ProductCard() {
   return (
-    <div className="flex flex-col md:flex-row p-3 w-full items-center justify-evenly lg:justify-around gap-4 pt-12">
+    <div className="flex flex-col md:flex-row p-8 w-full items-center justify-evenly lg:justify-around gap-4 pt-12">
       {/** კარტა 1 */}
       <div className="bg-white w-full md:max-w-[200px] lg:max-w-[350px] p-1 text-black flex flex-col items-center">
         <div className="image">
