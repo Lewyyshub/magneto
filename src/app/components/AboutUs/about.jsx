@@ -18,11 +18,16 @@ function About() {
 
         {/* Text section */}
         <div className="w-full sm:w-[80%] md:w-1/2 px-2 sm:px-4 md:px-6">
-          <p className="text-white text-[14px] md:text-[15px] lg:text-[18px] leading-relaxed">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quia
-            pariatur eius ratione fugit nostrum nulla rerum eveniet possimus
-            perspiciatis ipsam. Itaque perspiciatis iste molestias fugiat odio
-            quos vel sequi fuga! Tempora, dolore eum perferendis blanditiis
+          <p className="text-black text-[14px] md:text-[15px] lg:text-[18px] leading-relaxed">
+            მოგესალმებით! მე ვარ ნათია, მესამე კურსის სტუდენტი და სულ რაღაც
+            რამდენიმე თვვის წინ შევქმენი ჩემი პატარა ბიზნესი — „მაგნეტო“ პატარა
+            საქმე, რომელიც დიდ სითბოს და სიყვარულს ატარებს. ყველა მაგნიტი
+            დამზადებულია გულით, იმ მიზნით, რომ თქვენი ძვირფასი მომენტები რეალურ,
+            მაგნიტურ მოგონებად ვაქციო, რომელიც მუდამ თვალწინ გექნებათ. პირველი
+            შეკვეთიდან დღემდე, თქვენი თითოეული ემოცია და შეტყობინება ჩემთვის
+            უდიდესი მოტივაციაა — რომ გავიზარდო და კიდევ უფრო კარგი გავხადო ეს
+            საქმე🌟. თუ შენც გინდა, შენი მოგონებები უნიკალურ მაგნიტებად აქციო —
+            შეუკვეთე და ერთად შევქმნათ რაღაც ძალიან განსაკუთრებული💫.
           </p>
         </div>
       </div>

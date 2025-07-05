@@ -9,7 +9,7 @@ function Navbar() {
   // };
   
   return (
-    <div className=" flex-col hidden md:flex items-center space-y-2 md:flex-row md:justify-evenly md:space-y-0 md:space-x-4 w-full md:w-[270px] text-gray-400">
+    <div className=" flex-col hidden md:flex items-center space-y-2 md:flex-row md:justify-evenly md:space-y-0 md:space-x-4 w-full md:w-[270px] text-black opacity-80">
       <p
         // onClick={Navigate}
         className=" hover:text-black hover:underline cursor-pointer"

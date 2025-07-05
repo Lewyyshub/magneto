@@ -7,7 +7,7 @@ import React from "react";
 
 function Dashboard() {
   return (
-    <div className=" flex items-center justify-center flex-col">
+    <div className="bg-white flex items-center justify-center flex-col">
       <Richtext />
       <Productstext />
       <ProductCard />
