@@ -2,16 +2,9 @@
 import Image from "next/image";
 import React from "react";
 import Products from "@/app/products";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 function ProductCard() {
-  // const router = useRouter();
-
-  // const ProductPage = (id) => {
-  //   router.push(`/checkout/${id}`);
-  // };
-
   return (
     <div className="flex flex-col md:flex-row p-8 w-full items-center justify-evenly lg:justify-evenly gap-4 pt-12">
       {Products.map((product) => (
@@ -29,7 +22,7 @@ function ProductCard() {
             />
           </div>
           <p>{product.name}</p>
-          <p>{product.price}₾</p>
+          <p>{product.price}</p>
           <div className="btn bg-green-500 w-[60px] p-1 flex items-center justify-center rounded-[20px] text-[12px] font-bold hover:bg-green-700 border-0">
             <Link href={`/checkout/${product.id}`}>ყიდვა</Link>
           </div>
