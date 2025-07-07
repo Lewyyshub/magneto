@@ -6,11 +6,11 @@ import Link from "next/link";
 
 function ProductCard() {
   return (
-    <div className="flex flex-col md:flex-row p-8 w-full items-center justify-evenly lg:justify-evenly gap-4 pt-12">
+    <div className="flex  flex-col md:flex-row p-8 w-full items-center justify-evenly lg:justify-evenly gap-4 pt-12">
       {Products.map((product) => (
         <div
           key={product.id}
-          className="bg-white w-full md:max-w-[200px] lg:max-w-[350px] p-1 text-black flex flex-col items-center rounded-[10px]"
+          className="w-full md:max-w-[200px] lg:max-w-[350px] p-1 text-black flex flex-col items-center rounded-[10px]"
         >
           <div className="image">
             <Image
