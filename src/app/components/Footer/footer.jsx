@@ -3,7 +3,7 @@ import React from "react";
 
 function Footer() {
   return (
-    <div className="bg-white w-full min-h-[350px] flex flex-col justify-center items-center py-8 px-4 gap-4">
+    <div className="bg-white w-full min-h-[350px] flex flex-col justify-center items-center py-8 px-4 gap-4 border">
       {/* Accordion Section */}
       <div className="acordion-div flex flex-col gap-4 w-full max-w-[600px]">
         <div className="collapse collapse-arrow border-[2px]">
