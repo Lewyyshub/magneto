@@ -25,6 +25,14 @@
   }
 }
 
+@media (max-width: 1023px) and (min-width: 723px) {
+  .center-custom {
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center;
+  }
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

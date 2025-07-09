@@ -6,7 +6,7 @@ import Cart from "../Cart/cart";
 
 function Header() {
   return (
-    <div className="flex bg-white p-4 w-full items-center justify-evenly border-b border-b-gray-500">
+    <div className="flex bg-white p-4 w-full items-center justify-between lg:justify-evenly md:justify-evenly border-b border-b-gray-500 ">
       <Navbar />
       <Logo />
       <Cart />
