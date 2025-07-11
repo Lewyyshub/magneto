@@ -7,6 +7,13 @@ export default function ProductPage({ params }) {
   const product = Products.find((p) => String(p.id) === id);
   const [selectedQuantity, setSelectedQuantity] = useState(null);
   const [selectedMagnetOption, setSelectedMagnetOption] = useState(null);
+  const priceMap = {
+    4: 25,
+    8: 45,
+    12: 60,
+  };
+
+  const totalPrice = selectedQuantity ? priceMap[selectedQuantity] : 0;
 
   return (
     <div className="main-div text-black w-full flex flex-col md:flex-col lg:flex-row items-start md:items-center justify-center md:justify-evenly min-h-screen px-4 py-10 mx-auto max-w-[1200px] bg-white overflow-auto lg:container lg:mx-auto md:gap-5 gap-5">
@@ -64,6 +71,11 @@ export default function ProductPage({ params }) {
                   {qty}
                 </label>
               ))}
+              {selectedQuantity && (
+                <div className="text-[16px] font-semibold">
+                  ჯამური ფასი: {totalPrice} ₾
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -71,7 +83,7 @@ export default function ProductPage({ params }) {
         {product.magnetOptions && (
           <div className="w-full flex flex-col gap-4 mt-4">
             <p className="text-[15px] font-bold">აირჩიე ვარიანტი:</p>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 justify-center">
               {product.magnetOptions.map((option) => (
                 <label
                   key={option}
