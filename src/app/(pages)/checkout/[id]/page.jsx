@@ -10,7 +10,6 @@ export default function ProductPage({ params }) {
 
   return (
     <div className="main-div text-black w-full flex flex-col md:flex-col lg:flex-row items-start md:items-center justify-center md:justify-evenly min-h-screen px-4 py-10 mx-auto max-w-[1200px] bg-white overflow-auto lg:container lg:mx-auto md:gap-5 gap-5">
-      {/* Image */}
       <div className="image-div w-full md:w-full lg:w-[55%] flex items-center justify-center mb-10 md:mb-0">
         <Image
           src={product.image}
@@ -21,7 +20,6 @@ export default function ProductPage({ params }) {
         />
       </div>
 
-      {/* Details */}
       <div className="details-div flex flex-col gap-8 w-full md:w-full lg:w-[40%] md:p-4">
         <div className="first-sec flex flex-col w-full gap-3">
           <h1 className="text-[24px] md:text-[20px] lg:text-[30px] font-semibold">
@@ -32,7 +30,6 @@ export default function ProductPage({ params }) {
           </p>
         </div>
 
-        {/* Size */}
         {product.size && (
           <div className="gap-1 flex flex-col md:flex-row md:items-center lg:flex-col lg:items-start">
             <h1 className="font-semibold text-[13px]">ზომა:</h1>
@@ -42,7 +39,6 @@ export default function ProductPage({ params }) {
           </div>
         )}
 
-        {/* Quantity – ფოტო მაგნიტებისთვის */}
         {product.magnetQuantity && (
           <div className="w-full flex flex-col gap-4 text-black">
             <p className="text-[15px] font-bold">აირჩიე რაოდენობა:</p>
@@ -72,7 +68,6 @@ export default function ProductPage({ params }) {
           </div>
         )}
 
-        {/* Magnet Options – სადგამისთვის */}
         {product.magnetOptions && (
           <div className="w-full flex flex-col gap-4 mt-4">
             <p className="text-[15px] font-bold">აირჩიე ვარიანტი:</p>
@@ -102,7 +97,6 @@ export default function ProductPage({ params }) {
           </div>
         )}
 
-        {/* Purchase button */}
         <div className="rounded-[10px] w-full h-[50px] bg-black text-white hover:bg-gray-900 transition mt-6">
           <button className="w-full h-full text-[16px] font-semibold cursor-pointer">
             შეძენა

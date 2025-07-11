@@ -10,7 +10,7 @@ function ProductCard() {
       {Products.map((product) => (
         <div
           key={product.id}
-          className="w-full md:max-w-[200px] lg:max-w-[350px] p-1 text-black flex flex-col items-center rounded-[10px]"
+          className="w-full border-3 md:max-w-[200px] lg:max-w-[350px] p-2 text-black flex flex-col items-center rounded-[10px]"
         >
           <div className="image">
             <Image
@@ -22,7 +22,7 @@ function ProductCard() {
             />
           </div>
           <p>{product.name}</p>
-          <p>{product.price}</p>
+          <p className="font-bold">{product.price}</p>
           <div className="btn bg-green-500 w-[60px] p-1 flex items-center justify-center rounded-[20px] text-[12px] font-bold hover:bg-green-700 border-0">
             <Link href={`/checkout/${product.id}`}>ყიდვა</Link>
           </div>
