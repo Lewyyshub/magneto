@@ -5,7 +5,7 @@ function About() {
     <>
       <div className="w-full min-h-screen p-6 md:p-10 flex flex-col md:flex-row items-center justify-center gap-6">
         {/* Image section */}
-        <div className="relative w-full sm:w-[80%] md:w-1/2 max-w-[500px] aspect-[5/6] rounded-[20px] overflow-hidden">
+        <div className="relative w-full sm:w-[80%] md:w-1/2 max-w-[500px] aspect-[5/6] rounded-[20px] overflow-hidden shadow-md">
           <Image
             src="/nati.png"
             alt="magneto-cover"

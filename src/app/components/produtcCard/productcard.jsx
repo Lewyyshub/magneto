@@ -10,7 +10,7 @@ function ProductCard() {
       {Products.map((product) => (
         <div
           key={product.id}
-          className="w-full border-3 md:max-w-[200px] lg:max-w-[350px] p-2 text-black flex flex-col items-center rounded-[10px]"
+          className="w-full border-b-1  shadow-md md:max-w-[200px] lg:max-w-[350px] p-2 text-black flex flex-col items-center rounded-[10px]"
         >
           <div className="image">
             <Image

@@ -2,11 +2,13 @@
 import Products from "@/app/products";
 import Image from "next/image";
 import { use, useState } from "react";
+import { useCart } from "@/app/context/CartContext";
 export default function ProductPage({ params }) {
   const { id } = use(params);
   const product = Products.find((p) => String(p.id) === id);
   const [selectedQuantity, setSelectedQuantity] = useState(null);
   const [selectedMagnetOption, setSelectedMagnetOption] = useState(null);
+  const { addToCart } = useCart();
 
   const priceMap = {
     4: 25,
@@ -23,6 +25,17 @@ export default function ProductPage({ params }) {
     ? priceMap1[selectedMagnetOption]
     : 0;
 
+  const handleAddToCart = () => {
+    const selected = {
+      id: product.id,
+      name: product.name,
+      image: product.image,
+      quantity: selectedQuantity || 1,
+      price: totalPrice || totalPrice1 || 0,
+    };
+
+    addToCart(selected);
+  };
   return (
     <div className="flex items-center justify-center w-full">
       <div className="main-div lg:justify-between text-black w-full flex flex-col md:flex-col lg:flex-row items-start md:items-center justify-center md:justify-evenly min-h-screen px-4 py-10 mx-auto max-w-[1200px] bg-white overflow-auto lg:container lg:mx-auto md:gap-5 gap-5">
@@ -124,7 +137,10 @@ export default function ProductPage({ params }) {
           )}
 
           <div className="rounded-[10px] w-full h-[50px] bg-black text-white hover:bg-gray-900 transition mt-6">
-            <button className="w-full h-full text-[16px] font-semibold cursor-pointer">
+            <button
+              className="w-full h-full text-[16px] font-semibold cursor-pointer"
+              onClick={handleAddToCart}
+            >
               შეძენა
             </button>
           </div>
