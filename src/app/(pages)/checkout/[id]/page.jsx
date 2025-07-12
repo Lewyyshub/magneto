@@ -7,13 +7,21 @@ export default function ProductPage({ params }) {
   const product = Products.find((p) => String(p.id) === id);
   const [selectedQuantity, setSelectedQuantity] = useState(null);
   const [selectedMagnetOption, setSelectedMagnetOption] = useState(null);
+  
   const priceMap = {
     4: 25,
     8: 45,
     12: 60,
   };
+  const priceMap1 = {
+    "მხოლოდ სადგამი": 25,
+    "სადგამი + 4 ფოტო მაგნიტი": 50,
+  };
 
   const totalPrice = selectedQuantity ? priceMap[selectedQuantity] : 0;
+  const totalPrice1 = selectedMagnetOption
+    ? priceMap1[selectedMagnetOption]
+    : 0;
 
   return (
     <div className="main-div text-black w-full flex flex-col md:flex-col lg:flex-row items-start md:items-center justify-center md:justify-evenly min-h-screen px-4 py-10 mx-auto max-w-[1200px] bg-white overflow-auto lg:container lg:mx-auto md:gap-5 gap-5">
@@ -105,6 +113,11 @@ export default function ProductPage({ params }) {
                   {option}
                 </label>
               ))}
+              {selectedMagnetOption && (
+                <div className="text-[16px] font-semibold">
+                  ჯამური ფასი: {totalPrice1} ₾
+                </div>
+              )}
             </div>
           </div>
         )}
