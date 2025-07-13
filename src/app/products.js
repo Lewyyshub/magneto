@@ -26,6 +26,7 @@ const Products = [
     name: "მაგნიტური დაფა",
     price: "ზომის მიხედვით",
     image: "/2.jpeg",
+    
   },
 ];
 

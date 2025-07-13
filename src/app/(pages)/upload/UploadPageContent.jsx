@@ -32,7 +32,6 @@ export default function UploadPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Uploaded files:", fileInputs);
-    // აქ შეგიძლია ატვირთო სერვერზე
   };
 
   return (
@@ -42,7 +41,7 @@ export default function UploadPage() {
       </h1>
       <form
         onSubmit={handleSubmit}
-        className="grid grid-cols-2 sm:grid-cols-3 gap-4 w-full max-w-xl"
+        className="grid grid-cols-2 sm:grid-cols-2 gap-4 w-full max-w-xl"
       >
         {fileInputs.map((file, index) => (
           <div
