@@ -3,12 +3,15 @@ import Products from "@/app/products";
 import Image from "next/image";
 import { use, useState } from "react";
 import { useCart } from "@/app/context/CartContext";
+import { useRouter } from "next/navigation";
+
 export default function ProductPage({ params }) {
   const { id } = use(params);
   const product = Products.find((p) => String(p.id) === id);
   const [selectedQuantity, setSelectedQuantity] = useState(null);
   const [selectedMagnetOption, setSelectedMagnetOption] = useState(null);
   const { addToCart } = useCart();
+  const router = useRouter();
 
   const priceMap = {
     4: 25,
@@ -35,6 +38,20 @@ export default function ProductPage({ params }) {
     };
 
     addToCart(selected);
+  };
+  const handlePurchaseClick = () => {
+    if (selectedMagnetOption === "მხოლოდ სადგამი") {
+      // მხოლოდ სადგამი → გადაყავ checkout-ზე
+      router.push(`/checkout?id=${product.id}`);
+    } else if (selectedMagnetOption === "სადგამი + 4 ფოტო მაგნიტი") {
+      // სადგამი + 4 ფოტო → გადაყავ upload-ზე
+      router.push(`/upload?id=${product.id}&qty=4`);
+    } else if (selectedQuantity) {
+      // რაოდენობა (მაგნიტების რაოდენობა) არჩეულია → გადაყავ upload-ზე
+      router.push(`/upload?id=${product.id}&qty=${selectedQuantity}`);
+    } else {
+      alert("გთხოვ აირჩიე რაოდენობა ან ვარიანტი");
+    }
   };
   return (
     <div className="flex items-center justify-center w-full">
@@ -139,7 +156,7 @@ export default function ProductPage({ params }) {
           <div className="rounded-[10px] w-full h-[50px] bg-black text-white hover:bg-gray-900 transition mt-6">
             <button
               className="w-full h-full text-[16px] font-semibold cursor-pointer"
-              onClick={handleAddToCart}
+              onClick={handlePurchaseClick}
             >
               შეძენა
             </button>
