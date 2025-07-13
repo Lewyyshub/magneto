@@ -4,6 +4,7 @@ import Image from "next/image";
 import { use, useState } from "react";
 import { useCart } from "@/app/context/CartContext";
 import { useRouter } from "next/navigation";
+import { useOrder } from "@/app/context/OrderContext";
 
 export default function ProductPage({ params }) {
   const { id } = use(params);
@@ -12,7 +13,7 @@ export default function ProductPage({ params }) {
   const [selectedMagnetOption, setSelectedMagnetOption] = useState(null);
   const { addToCart } = useCart();
   const router = useRouter();
-
+  const { setOrderDetails } = useOrder();
   const priceMap = {
     4: 25,
     8: 45,
@@ -40,14 +41,19 @@ export default function ProductPage({ params }) {
     addToCart(selected);
   };
   const handlePurchaseClick = () => {
+    setOrderDetails({
+      id: product.id,
+      name: product.name,
+      quantity: selectedQuantity || 4,
+      magnetOption: selectedMagnetOption,
+      price: totalPrice1 || totalPrice,
+    });
+
     if (selectedMagnetOption === "მხოლოდ სადგამი") {
-      // მხოლოდ სადგამი → გადაყავ checkout-ზე
       router.push(`/checkout?id=${product.id}`);
     } else if (selectedMagnetOption === "სადგამი + 4 ფოტო მაგნიტი") {
-      // სადგამი + 4 ფოტო → გადაყავ upload-ზე
       router.push(`/upload?id=${product.id}&qty=4`);
     } else if (selectedQuantity) {
-      // რაოდენობა (მაგნიტების რაოდენობა) არჩეულია → გადაყავ upload-ზე
       router.push(`/upload?id=${product.id}&qty=${selectedQuantity}`);
     } else {
       alert("გთხოვ აირჩიე რაოდენობა ან ვარიანტი");

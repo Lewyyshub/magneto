@@ -1,11 +1,14 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-
+import { useOrder } from "@/app/context/OrderContext";
+import { useRouter } from "next/navigation";
 export default function UploadPage() {
   const searchParams = useSearchParams();
   const qty = Number(searchParams.get("qty")) || 0;
   const [fileInputs, setFileInputs] = useState([]);
+  const router = useRouter();
+  const { setUploadedFiles } = useOrder();
 
   useEffect(() => {
     if (qty > 0) {
@@ -32,6 +35,8 @@ export default function UploadPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Uploaded files:", fileInputs);
+    setUploadedFiles(fileInputs); // <-- ფოტოები კონტექსტში
+    router.push("/userInfo");
   };
 
   return (
@@ -75,7 +80,7 @@ export default function UploadPage() {
               type="submit"
               className="w-full bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition"
             >
-              გაგზავნა
+              შემდეგ
             </button>
           </div>
         )}
