@@ -1,6 +1,10 @@
 "use client";
 import { useOrder } from "@/app/context/OrderContext";
 import { useState } from "react";
+import { uploadMultipleImages } from "@/app/utils/uploadMultipleImages";
+import { saveOrderToFirestore } from "@/app/utils/saveOrderToFirestore";
+import { compressImages } from "@/app/utils/compressImages";
+
 
 function UserInfo() {
   const { uploadedFiles, setUserInfo, orderDetails } = useOrder();
@@ -30,26 +34,41 @@ function UserInfo() {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("orderDetails:", orderDetails);
+    console.log("uploadedFiles:", uploadedFiles);
 
     const validationErrors = validate();
     setErrors(validationErrors);
+    if (Object.keys(validationErrors).length > 0) return;
 
-    if (Object.keys(validationErrors).length > 0) {
-      return;
+    try {
+      // ✅ 1. შევამოწმოთ თუ არის ფოტოები
+      if (!uploadedFiles || uploadedFiles.length === 0) {
+        alert("გთხოვ ატვირთე ფოტოები");
+        return;
+      }
+
+      // ✅ 2. კომპრესია
+      const compressedFiles = await compressImages(uploadedFiles);
+
+      // ✅ 3. ატვირთვა Cloudinary-ზე
+      const imageUrls = await uploadMultipleImages(compressedFiles);
+
+      const orderData = {
+        product: orderDetails || {},
+        user: { name, city, address, phone },
+        images: imageUrls,
+        createdAt: new Date(),
+      };
+
+      await saveOrderToFirestore(orderData);
+      alert("შეკვეთა წარმატებით გაიგზავნა!");
+    } catch (err) {
+      console.error("შეცდომა:", err);
+      alert("შეცდომა მოხდა. სცადე თავიდან.");
     }
-
-    const userData = { name, city, address, phone };
-    setUserInfo(userData);
-
-    console.log("მონაცემები:", {
-      orderDetails,
-      uploadedFiles,
-      userData,
-    });
-
-    // აქ შემდეგ ატვირთავ Firebase-ში ან გააგრძელებ გადახდაზე
   };
 
   return (

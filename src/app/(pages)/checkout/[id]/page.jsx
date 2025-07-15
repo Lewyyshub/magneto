@@ -1,13 +1,14 @@
 "use client";
 import Products from "@/app/products";
 import Image from "next/image";
-import { use, useState } from "react";
+import { useState } from "react";
+import { useParams } from "next/navigation";
 import { useCart } from "@/app/context/CartContext";
 import { useRouter } from "next/navigation";
 import { useOrder } from "@/app/context/OrderContext";
 
 export default function ProductPage({ params }) {
-  const { id } = use(params);
+  const { id } = useParams();
   const product = Products.find((p) => String(p.id) === id);
   const [selectedQuantity, setSelectedQuantity] = useState(null);
   const [selectedMagnetOption, setSelectedMagnetOption] = useState(null);
