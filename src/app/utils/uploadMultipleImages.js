@@ -1,7 +1,7 @@
 export const uploadMultipleImages = async (files) => {
-  const uploadPreset = "magnetoPhotos"; // your Cloudinary upload preset
-  const cloudName = "dehxuhgq8"; // your Cloudinary cloud name
-
+  const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+  const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
+  
   const uploadPromises = files.map(async (file) => {
     if (!file) throw new Error("No file provided for upload");
     const formData = new FormData();
