@@ -43,7 +43,7 @@ function Footer() {
       {/* Socials Section */}
       <div className="socials mt-8 w-full max-w-[600px] flex flex-row justify-center gap-4 sm:gap-6 items-center">
         <h1 className="text-black font-bold text-base sm:text-lg">
-          Follow Us:
+          გამოგვყევი :
         </h1>
 
         <a

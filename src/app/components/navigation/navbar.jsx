@@ -2,7 +2,6 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { IoMenu, IoClose } from "react-icons/io5";
-
 function Navbar() {
   const [isActive, setIsActive] = useState(false);
   const toggleBurger = () => {
@@ -17,14 +16,17 @@ function Navbar() {
             href="/"
             className="hover:text-black hover:underline cursor-pointer"
           >
-            Home
+            HOME
           </Link>
-          <p className="hover:text-black hover:underline cursor-pointer">
+          {/* <p className="hover:text-black hover:underline cursor-pointer">
             Catalog
-          </p>
-          <p className="hover:text-black hover:underline cursor-pointer">
-            Contact
-          </p>
+          </p> */}
+          <Link
+            href={"/contact"}
+            className="hover:text-black hover:underline cursor-pointer"
+          >
+            CONTACT
+          </Link>
         </div>
       </nav>
 
@@ -49,14 +51,17 @@ function Navbar() {
                 href="/"
                 className="hover:text-black hover:underline cursor-pointer"
               >
-               HOME
+                HOME
               </Link>
-              <p className="hover:text-black hover:underline cursor-pointer">
+              {/* <p className="hover:text-black hover:underline cursor-pointer">
                CATALOG
-              </p>
-              <p className="hover:text-black hover:underline cursor-pointer">
+              </p> */}
+              <Link
+                href={"/contact"}
+                className="hover:text-black hover:underline cursor-pointer"
+              >
                 CONTACT
-              </p>
+              </Link>
             </div>
           </div>
         )}
