@@ -12,9 +12,12 @@ export default function ProductPage({ params }) {
   const product = Products.find((p) => String(p.id) === id);
   const [selectedQuantity, setSelectedQuantity] = useState(null);
   const [selectedMagnetOption, setSelectedMagnetOption] = useState(null);
+  const [customQty, setCustomQty] = useState("");
   const { addToCart } = useCart();
   const router = useRouter();
   const { setOrderDetails } = useOrder();
+  const [isInvalid, setIsInvalid] = useState(false);
+
   const priceMap = {
     4: 25,
     8: 45,
@@ -25,7 +28,16 @@ export default function ProductPage({ params }) {
     "სადგამი + 4 ფოტო მაგნიტი": 50,
   };
 
-  const totalPrice = selectedQuantity ? priceMap[selectedQuantity] : 0;
+  const finalQty =
+    customQty !== "" && Number(customQty) >= 12
+      ? Number(customQty)
+      : selectedQuantity;
+
+  const totalPrice = finalQty
+    ? priceMap[finalQty] ??
+      (finalQty > 12 ? priceMap[12] + (finalQty - 12) * 5 : 0)
+    : 0;
+
   const totalPrice1 = selectedMagnetOption
     ? priceMap1[selectedMagnetOption]
     : 0;
@@ -42,10 +54,25 @@ export default function ProductPage({ params }) {
     addToCart(selected);
   };
   const handlePurchaseClick = () => {
+    const qtyToCheck =
+      customQty !== "" && Number(customQty) >= 12
+        ? Number(customQty)
+        : selectedQuantity;
+
+    if (
+      !selectedMagnetOption &&
+      (!qtyToCheck || (customQty !== "" && qtyToCheck < 12))
+    ) {
+      setIsInvalid(true);
+      return;
+    }
+
+    setIsInvalid(false);
+
     setOrderDetails({
       id: product.id,
       name: product.name,
-      quantity: selectedQuantity || 4,
+      quantity: qtyToCheck,
       magnetOption: selectedMagnetOption,
       price: totalPrice1 || totalPrice,
     });
@@ -56,10 +83,11 @@ export default function ProductPage({ params }) {
       router.push(`/upload?id=${product.id}&qty=4`);
     } else if (selectedQuantity) {
       router.push(`/upload?id=${product.id}&qty=${selectedQuantity}`);
-    } else {
-      alert("გთხოვ აირჩიე რაოდენობა ან ვარიანტი");
+    } else if (customQty && Number(customQty) >= 12) {
+      router.push(`/upload?id=${product.id}&qty=${customQty}`);
     }
   };
+
   return (
     <div className="flex items-center justify-center w-full">
       <div className="main-div lg:justify-between text-black w-full flex flex-col md:flex-col lg:flex-row items-start md:items-center justify-center md:justify-evenly min-h-screen px-4 py-10 mx-auto max-w-[1200px] bg-white overflow-auto lg:container lg:mx-auto md:gap-5 gap-5">
@@ -122,6 +150,50 @@ export default function ProductPage({ params }) {
                     ჯამური ფასი: {totalPrice} ₾
                   </div>
                 )}
+              </div>
+              <div className="flex flex-col gap-1 w-full max-w-[200px] mt-4">
+                <input
+                  type="number"
+                  placeholder="სხვა რაოდენობა (მინ 12)"
+                  min="12"
+                  value={customQty}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (value === "") {
+                      setCustomQty("");
+                      setIsInvalid(false);
+                    } else {
+                      const number = Number(value);
+                      setCustomQty(number);
+                      if (number >= 12) {
+                        setIsInvalid(false);
+                        setSelectedQuantity(null);
+                      } else {
+                        setIsInvalid(true);
+                      }
+                    }
+                  }}
+                  className={`appearance-none 
+    [&::-webkit-inner-spin-button]:appearance-none 
+    [&::-webkit-outer-spin-button]:appearance-none
+    px-2 py-2 rounded-md border text-sm font-medium
+    ${
+      isInvalid
+        ? "border-red-500 focus:ring-red-500"
+        : "border-gray-300 focus:ring-black"
+    }
+    focus:outline-none focus:ring-2 transition shadow-sm`}
+                  style={{ MozAppearance: "textfield" }}
+                />
+
+                {isInvalid && (
+                  <span className="text-red-500 text-xs font-medium">
+                    მინიმალური რაოდენობაა 12
+                  </span>
+                )}
+                <span className="text-[13px] text-gray-600 italic mt-1">
+                  12 ფოტო მაგნიტის შემდეგ თითოს ფასი არის 5 ლარი
+                </span>
               </div>
             </div>
           )}

@@ -18,9 +18,6 @@ function Navbar() {
           >
             HOME
           </Link>
-          {/* <p className="hover:text-black hover:underline cursor-pointer">
-            Catalog
-          </p> */}
           <Link
             href={"/contact"}
             className="hover:text-black hover:underline cursor-pointer"
@@ -53,9 +50,6 @@ function Navbar() {
               >
                 HOME
               </Link>
-              {/* <p className="hover:text-black hover:underline cursor-pointer">
-               CATALOG
-              </p> */}
               <Link
                 href={"/contact"}
                 className="hover:text-black hover:underline cursor-pointer"
