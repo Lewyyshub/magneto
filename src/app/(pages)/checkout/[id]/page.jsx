@@ -1,7 +1,7 @@
 "use client";
 import Products from "@/app/products";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useCart } from "@/app/context/CartContext";
 import { useRouter } from "next/navigation";
@@ -25,7 +25,7 @@ export default function ProductPage({ params }) {
   };
   const priceMap1 = {
     "მხოლოდ სადგამი": 25,
-    "სადგამი + 4 ფოტო მაგნიტი": 50,
+    "სადგამი + 4 ფოტო მაგნიტი": 45,
   };
 
   const finalQty =
@@ -88,6 +88,12 @@ export default function ProductPage({ params }) {
     }
   };
 
+  useEffect(() => {
+    if (selectedQuantity !== null) {
+      setCustomQty("");
+    }
+  }, [selectedQuantity]);
+
   return (
     <div className="flex items-center justify-center w-full">
       <div className="main-div lg:justify-between text-black w-full flex flex-col md:flex-col lg:flex-row items-start md:items-center justify-center md:justify-evenly min-h-screen px-4 py-10 mx-auto max-w-[1200px] bg-white overflow-auto lg:container lg:mx-auto md:gap-5 gap-5">
@@ -103,14 +109,36 @@ export default function ProductPage({ params }) {
 
         <div className="details-div flex flex-col gap-8 w-full md:w-full lg:w-[40%] md:p-4">
           <div className="first-sec flex flex-col w-full gap-3">
-            <h1 className="text-[24px] md:text-[20px] lg:text-[30px] font-semibold">
+            <h1 className="text-[24px] md:text-[20px] lg:text-[40px] font-semibold italic">
               {product.name}
             </h1>
-            <p className="text-[15px] md:text-[16px] lg:text-[18px]">
-              {product.description}
-            </p>
+            {(selectedQuantity || customQty) && (
+              <div className="text-2xl font-semibold flex gap-2 opacity-80 pt-2">
+                {selectedQuantity === 4 && (
+                  <>
+                    <p className="line-through opacity-75 text-2xl">30.00 ₾</p>
+                    <p>{totalPrice}.00 ₾</p>
+                  </>
+                )}
+                {selectedQuantity === 8 && (
+                  <>
+                    <p className="line-through opacity-75 text-2xl">50.00 ₾</p>
+                    <p>{totalPrice}.00 ₾</p>
+                  </>
+                )}
+                {selectedQuantity === 12 && (
+                  <>
+                    <p className="line-through opacity-75 text-2xl">70.00 ₾</p>
+                    <p>{totalPrice}.00 ₾</p>
+                  </>
+                )}
+                {!selectedQuantity && customQty >= 12 && (
+                  <p>{customQty * 5}.00 ₾</p>
+                )}
+              </div>
+            )}
           </div>
-
+          {/* 
           {product.size && (
             <div className="gap-1 flex flex-col md:flex-row md:items-center lg:flex-col lg:items-start">
               <h1 className="font-semibold text-[13px]">ზომა:</h1>
@@ -118,7 +146,7 @@ export default function ProductPage({ params }) {
                 <h1>{product.size}</h1>
               </div>
             </div>
-          )}
+          )} */}
 
           {product.magnetQuantity && (
             <div className="w-full flex flex-col gap-4 text-black">
@@ -145,61 +173,71 @@ export default function ProductPage({ params }) {
                     {qty}
                   </label>
                 ))}
-                {selectedQuantity && (
-                  <div className="text-[16px] font-semibold">
-                    ჯამური ფასი: {totalPrice} ₾
-                  </div>
-                )}
-              </div>
-              <div className="flex flex-col gap-1 w-full max-w-[200px] mt-4">
-                <input
-                  type="number"
-                  placeholder="სხვა რაოდენობა (მინ 12)"
-                  min="12"
-                  value={customQty}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    if (value === "") {
-                      setCustomQty("");
-                      setIsInvalid(false);
-                    } else {
-                      const number = Number(value);
-                      setCustomQty(number);
-                      if (number >= 12) {
+
+                <div className="flex flex-col gap-1 w-full max-w-[200px] mt-4">
+                  <input
+                    type="number"
+                    placeholder="+"
+                    min="12"
+                    value={customQty}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      if (value === "") {
+                        setCustomQty("");
                         setIsInvalid(false);
-                        setSelectedQuantity(null);
                       } else {
-                        setIsInvalid(true);
+                        const number = Number(value);
+                        setCustomQty(number);
+                        if (number >= 12) {
+                          setIsInvalid(false);
+                          setSelectedQuantity(null);
+                        } else {
+                          setIsInvalid(true);
+                        }
                       }
-                    }
-                  }}
-                  className={`appearance-none 
+                    }}
+                    className={`appearance-none 
     [&::-webkit-inner-spin-button]:appearance-none 
     [&::-webkit-outer-spin-button]:appearance-none
-    px-2 py-2 rounded-md border text-sm font-medium
+    w-10 h-10 text-center
+    rounded-full border text-sm font-medium
     ${
       isInvalid
         ? "border-red-500 focus:ring-red-500"
         : "border-gray-300 focus:ring-black"
     }
     focus:outline-none focus:ring-2 transition shadow-sm`}
-                  style={{ MozAppearance: "textfield" }}
-                />
+                  />
 
-                {isInvalid && (
-                  <span className="text-red-500 text-xs font-medium">
-                    მინიმალური რაოდენობაა 12
+                  <span className="text-[13px] text-gray-600 italic mt-1">
+                    სასურველი რაოდენობა
                   </span>
-                )}
-                <span className="text-[13px] text-gray-600 italic mt-1">
-                  12 ფოტო მაგნიტის შემდეგ თითოს ფასი არის 5 ლარი
-                </span>
+                  {isInvalid && (
+                    <span className="text-red-500 text-xs font-medium">
+                      მინიმალური რაოდენობაა 12
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           )}
 
           {product.magnetOptions && (
             <div className="w-full flex flex-col gap-4 mt-4">
+              <div className="text-2xl font-semibold flex gap-2 opacity-80 pt-2">
+                {selectedMagnetOption === "მხოლოდ სადგამი" && (
+                  <>
+                    <p className="line-through opacity-75 text-2xl">30.00 ₾</p>
+                    <p>{totalPrice1} ₾</p>
+                  </>
+                )}
+                {selectedMagnetOption === "სადგამი + 4 ფოტო მაგნიტი" && (
+                  <>
+                    <p className="line-through opacity-75 text-2xl">50.00 ₾</p>
+                    <p>{totalPrice1} ₾</p>
+                  </>
+                )}
+              </div>
               <p className="text-[15px] font-bold">აირჩიე ვარიანტი:</p>
               <div className="flex flex-wrap gap-2 justify-center">
                 {product.magnetOptions.map((option) => (
@@ -223,16 +261,11 @@ export default function ProductPage({ params }) {
                     {option}
                   </label>
                 ))}
-                {selectedMagnetOption && (
-                  <div className="text-[16px] font-semibold">
-                    ჯამური ფასი: {totalPrice1} ₾
-                  </div>
-                )}
               </div>
             </div>
           )}
 
-          <div className="rounded-[10px] w-full h-[50px] bg-black text-white hover:bg-gray-900 transition mt-6">
+          <div className="rounded-[40px] w-full h-[50px] bg-black text-white hover:bg-gray-900 transition mt-6">
             <button
               className="w-full h-full text-[16px] font-semibold cursor-pointer"
               onClick={handlePurchaseClick}
@@ -240,6 +273,9 @@ export default function ProductPage({ params }) {
               შეძენა
             </button>
           </div>
+          <p className="text-[15px] md:text-[16px] lg:text-[18px]">
+            {product.description}
+          </p>
         </div>
       </div>
     </div>

@@ -10,21 +10,31 @@ function ProductCard() {
       {Products.map((product) => (
         <div
           key={product.id}
-          className="w-full border-b-1  shadow-md md:max-w-[200px] lg:max-w-[350px] p-2 text-black flex flex-col items-center rounded-[10px]"
+          className="w-full border-b-1 gap-2 shadow-md md:max-w-[200px] lg:max-w-[350px] p-2 text-black flex flex-col items-start rounded-[10px] hover:shadow-xl transition-shadow duration-300"
         >
-          <div className="image">
+          <div className="relative w-full aspect-[4/4]">
             <Image
               src={product.image}
               alt={product.name || "magnet"}
-              width={340}
-              height={300}
-              className="rounded-[5px]"
+              fill
+              className="rounded-[5px] object-cover"
             />
           </div>
           <p>{product.name}</p>
-          <p className="font-bold">{product.price}</p>
-          <div className="btn bg-green-500 w-[60px] p-1 flex items-center justify-center rounded-[20px] text-[12px] font-bold hover:bg-green-700 border-0">
-            <Link href={`/checkout/${product.id}`}>ყიდვა</Link>
+          <div className="flex w-full items-center justify-between">
+            <div className="flex gap-2">
+              {product.oldPrice && (
+                <p className="line-through text-[15px] opacity-70">
+                  {product.oldPrice}
+                </p>
+              )}
+              <p className="font-bold text-[17px] opacity-80">
+                {product.price}
+              </p>
+            </div>
+            <div className="btn bg-black w-[60px] p-1 flex items-center justify-center rounded-[20px] text-[12px] font-bold hover:bg-green-900 border-0">
+              <Link href={`/checkout/${product.id}`}>ყიდვა</Link>
+            </div>
           </div>
         </div>
       ))}
