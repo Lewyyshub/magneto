@@ -1,11 +1,17 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
+import { useRef } from "react";
 import { IoMenu, IoClose } from "react-icons/io5";
 function Navbar() {
   const [isActive, setIsActive] = useState(false);
+
   const toggleBurger = () => {
     setIsActive(!isActive);
+  };
+
+  const hideBurger = () => {
+    setIsActive(false);
   };
 
   return (
@@ -47,12 +53,14 @@ function Navbar() {
               <Link
                 href="/"
                 className="hover:text-black hover:underline cursor-pointer"
+                onClick={hideBurger}
               >
                 HOME
               </Link>
               <Link
                 href={"/contact"}
                 className="hover:text-black hover:underline cursor-pointer"
+                onClick={hideBurger}
               >
                 CONTACT
               </Link>

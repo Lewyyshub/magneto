@@ -78,7 +78,7 @@ export default function ProductPage({ params }) {
     });
 
     if (selectedMagnetOption === "მხოლოდ სადგამი") {
-      router.push(`/checkout?id=${product.id}`);
+      router.push(`/userInfo`);
     } else if (selectedMagnetOption === "სადგამი + 4 ფოტო მაგნიტი") {
       router.push(`/upload?id=${product.id}&qty=4`);
     } else if (selectedQuantity) {
