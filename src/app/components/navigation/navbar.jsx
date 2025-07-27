@@ -1,11 +1,12 @@
 "use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import { useRef } from "react";
 import { IoMenu, IoClose } from "react-icons/io5";
 function Navbar() {
   const [isActive, setIsActive] = useState(false);
-
+  const path = usePathname();
   const toggleBurger = () => {
     setIsActive(!isActive);
   };
