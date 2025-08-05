@@ -121,12 +121,6 @@ export default function Payment() {
             </div>
           </div>
         </div>
-        {/* <p className="text-sm md:text-base text-pink-600 leading-relaxed whitespace-pre-line"> */}
-        {/* <br />
-            💳 GE12TB0000000000000000
-            <br /> */}
-        {/* 📄 დანიშნულება: {name} - {quantity || magnetOption} */}
-        {/* </p> */}
         <div className="flex flex-col gap-2">
           <label className="block mb-2 font-semibold text-gray-800">
             ატვირთე გადახდის სქრინი
